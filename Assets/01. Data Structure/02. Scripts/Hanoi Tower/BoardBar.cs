@@ -3,25 +3,25 @@ using UnityEngine;
 
 public class BoardBar : MonoBehaviour
 {
-    public enum BarType { Left, Center, Rigt }
+    public enum BarType { Left, Center, Right }
     public BarType barType;
 
     public Stack<GameObject> barStack = new Stack<GameObject>();
 
-    private void OnMouseDown()
+    void OnMouseDown() // Collider만 있으면 가능
     {
-        if (!HanoiTower.isSelected) // 선택x 상태
+        if (!HanoiTower.isSelected) // 선택이 안된 상태일 때
         {
             HanoiTower.isSelected = true;
             HanoiTower.selectedDonut = PopDonut();
         }
-        else // 선택o 상태
-        {            
+        else // 선택된 상태일 때
+        {
             PushDonut(HanoiTower.selectedDonut);
-        }        
+        }
     }
 
-    public bool CheckDonut(GameObject donut) // 도넛 넘버 확인
+    public bool CheckDonut(GameObject donut)
     {
         if (barStack.Count > 0)
         {
@@ -36,7 +36,7 @@ public class BoardBar : MonoBehaviour
             }
             else
             {
-                Debug.Log ($"현재 넣으려는 도넛은 {pushNumber}이고, 해당 기둥의 제일 위 도넛은 {peekNumber}입니다.");
+                Debug.Log($"현재 넣으려는 도넛은 {pushNumber}이고, 해당 기둥의 제일 위의 도넛은 {peekNumber}입니다.");
                 return false;
             }
         }
@@ -44,17 +44,15 @@ public class BoardBar : MonoBehaviour
         return true;
     }
 
-
     public void PushDonut(GameObject donut)
     {
-        if (!CheckDonut(donut))        
+        if (!CheckDonut(donut))
             return;
 
         HanoiTower.isSelected = false;
         HanoiTower.selectedDonut = null;
 
-        donut.transform.position = transform.position + Vector3.up * 5f; // Vector3(0,1,0);
-        // 자신 막대기 위치의 y = 5f 위치에 생성
+        donut.transform.position = transform.position + Vector3.up * 5f;
         donut.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         donut.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 

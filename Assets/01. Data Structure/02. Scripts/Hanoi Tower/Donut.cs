@@ -4,9 +4,4 @@ public class Donut : MonoBehaviour
 {
     public int donutNumber;
 
-    void Start()
-    {
-        
-    }
-
 }
