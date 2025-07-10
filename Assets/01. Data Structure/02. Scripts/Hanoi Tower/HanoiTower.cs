@@ -26,12 +26,10 @@ public class HanoiTower : MonoBehaviour
             donut.transform.position = new Vector3(-5f, 5f, 0); // 도넛 생성 위치 : 왼쪽 막대기 + 위쪽
 
             bars[0].PushDonut(donut); // 방금 생성한 도넛을 해당 Bar의 Stack Push
+            moveCount = 0;
 
             yield return new WaitForSeconds(1f); // 순차적으로 생성
         }
-
-        moveCount = 0;
-        countTextUI.text = moveCount.ToString();
     }
 
     private void Update()
