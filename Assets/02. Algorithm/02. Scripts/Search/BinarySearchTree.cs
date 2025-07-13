@@ -25,9 +25,20 @@ public class BinarySearchTree : MonoBehaviour
         {
             root = Insert(root, v);
         }   
+
+        PreOrder(root);
+        Debug.Log($"PreOrder : {result.TrimEnd(',')}");
+
+        result = string.Empty;
+        InOrder(root);
+        Debug.Log($"InOrder : {result.TrimEnd(',')}");
+
+        result = string.Empty;
+        PostOrder(root);
+        Debug.Log($"PostOrder : {result.TrimEnd(',')}");
     }
 
-    private TreeNode Insert(TreeNode node, int v)
+    private TreeNode Insert(TreeNode node, int v) // 트리 생성
     {
         if (node == null)
         {
@@ -45,4 +56,35 @@ public class BinarySearchTree : MonoBehaviour
 
         return node;
     }
+
+    private void PreOrder(TreeNode node) // 전위 순회
+    {
+        if (node == null)
+            return;
+
+        result += $"{node.value},"; // 현재 노드 먼저 출력
+        PreOrder(node.left);
+        PreOrder(node.right);
+    }
+
+    private void InOrder(TreeNode node) // 중위 순회
+    {
+        if (node == null)
+            return;
+
+        InOrder(node.left);
+        result += $"{node.value},";
+        InOrder(node.right);
+    }
+
+    private void PostOrder(TreeNode node) // 후위 순회
+    {
+        if (node == null)
+            return;
+
+        PostOrder(node.left);
+        PostOrder(node.right);
+        result += $"{node.value},";
+    }    
+
 }
